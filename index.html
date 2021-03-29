@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/hellow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -160,492 +160,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/29/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" class="post-title-link" itemprop="url">vue路由钩子</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-27 14:54:05" itemprop="dateModified" datetime="2021-01-27T14:54:05+08:00">2021-01-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">vue路由钩子</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="vue路由钩子"><a href="#vue路由钩子" class="headerlink" title="vue路由钩子"></a>vue路由钩子</h4><p>路由钩子主要主要是拦截导航，完成跳转或者取消跳转。比如登录界面输入了账号密码<br>主界面需要展示账号，但是你没有把账号这个字段保存到 session里面，直接跳转会导致页<br>面显示空白，这个时候就需要一个beforeRouteLeave路由钩子，没有数据的而情况下，禁止<br>界面跳转。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  beforeRouteLeave(to,from,next)&#123;</span><br><span class="line">  if(&#39;account&#39; &#x3D;&#x3D;&#x3D; &#39; &#39;)&#123;</span><br><span class="line">      next(false);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    next();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>参数：<br>     to     是要跳转到的界面<br>     from   是从哪个界面离开<br>     next() 是否允许跳转<br>     next(flase) 禁止跳转</p>
-<h3 id="路由钩子的主要实现方式有三种"><a href="#路由钩子的主要实现方式有三种" class="headerlink" title="路由钩子的主要实现方式有三种"></a>路由钩子的主要实现方式有三种</h3><h4 id="1-全局实现的钩子"><a href="#1-全局实现的钩子" class="headerlink" title="1.全局实现的钩子"></a>1.全局实现的钩子</h4><p>使用 router.beforeEach 注册一个全局的before钩子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var routes &#x3D; [&#123;</span><br><span class="line">  path:&#39;&#x2F;route1&#39;,</span><br><span class="line">  name:&#39;route1&#39;,</span><br><span class="line">  component:() &#x3D; &gt; import(&#39;.&#x2F;index.vue&#39;)  &#x2F;&#x2F;调用的时候再开始加载</span><br><span class="line">&#125;]</span><br><span class="line"> const router &#x3D; new VueRouter(&#123; </span><br><span class="line">    routes；</span><br><span class="line">  &#125;)</span><br><span class="line">router.beforeEach((to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  next(false);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>全局的 after钩子没有next方法,不能改变导航</p>
-<h4 id="2-路由独享的钩子"><a href="#2-路由独享的钩子" class="headerlink" title="2.路由独享的钩子"></a>2.路由独享的钩子</h4><p>配置路由的时候可以直接增加 beforeEnter，类似于before</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var routes &#x3D; [&#123;</span><br><span class="line">  path:&#39;&#x2F;index&#39;,</span><br><span class="line">  name:&#39;Index&#39;,</span><br><span class="line">  component:() &#x3D; &gt; import(&#39;.&#x2F;index.vue&#39;)  &#x2F;&#x2F;调用的时候再开始加载</span><br><span class="line">  beforeEnter: (to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">       next();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
-<h4 id="3-组件内实现的钩子"><a href="#3-组件内实现的钩子" class="headerlink" title="3.组件内实现的钩子"></a>3.组件内实现的钩子</h4><p>钩子函数的用法：他是和data,methods平级的。</p>
-<p>beforeRouteEnter<br>在导航确认之前调用，新组件的beforeCreate之前调用，<br>beforeRouteUpdate(2.2 新增)<br>点击跟更新二级导航时调用<br>beforeRouteLeave<br>离开当前界面之前调用</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6/" class="post-title-link" itemprop="url">vue父子组件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-27 16:00:12" itemprop="dateModified" datetime="2021-01-27T16:00:12+08:00">2021-01-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">vue父子组件</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="组件介绍"><a href="#组件介绍" class="headerlink" title="组件介绍"></a>组件介绍</h2><p>组件是可复用的 Vue 实例, 如果网页中的某一个部分需要在多个场景中使用，那么我们可以将其组件进行复用。组件大大提高了代码的复用率。</p>
-<h2 id="父子组件通信"><a href="#父子组件通信" class="headerlink" title="父子组件通信"></a>父子组件通信</h2><h3 id="·父组件-Father-vue，"><a href="#·父组件-Father-vue，" class="headerlink" title="·父组件  Father.vue，"></a>·父组件  Father.vue，</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">    我是父组件</span><br><span class="line">    &lt;!--父组件监听子组件触发的say方法，调用自己的parentSay方法--&gt;</span><br><span class="line">    &lt;!--通过:msg将父组件的数据传递给子组件--&gt;</span><br><span class="line">    &lt;child :msg&#x3D;&quot;msg&quot; @say&#x3D;&quot;parentSay&quot;&gt;&lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">import Child from &#39;.&#x2F;child&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#39;hello, child&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  methods: &#123;</span><br><span class="line">      &#x2F;&#x2F; 参数就是子组件传递出来的数据</span><br><span class="line">      parentSay(msg)&#123;</span><br><span class="line">          console.log(msg) &#x2F;&#x2F; hello, parent</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 引入子组件</span><br><span class="line">  components:&#123;</span><br><span class="line">      Child</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="·子组件-Child-vue"><a href="#·子组件-Child-vue" class="headerlink" title="·子组件  Child.vue,"></a>·子组件  Child.vue,</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;hello&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;children&quot; @click&#x3D;&quot;say&quot;&gt;</span><br><span class="line">      我是子组件</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        父组件对我说：&#123;&#123;msg&#125;&#125;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">  export default &#123;</span><br><span class="line">      &#x2F;&#x2F;父组件通过props属性传递进来的数据</span><br><span class="line">      props: &#123;</span><br><span class="line">          msg: &#123;</span><br><span class="line">              type: String,</span><br><span class="line">              default: () &#x3D;&gt; &#123;</span><br><span class="line">                  return &#39;&#39;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      data () &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            childrenSay: &#39;hello, parent&#39;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      methods: &#123;</span><br><span class="line">          &#x2F;&#x2F; 子组件通过emit方法触发父组件中定义好的函数，从而将子组件中的数据传递给父组件</span><br><span class="line">          say()&#123;</span><br><span class="line">              this.$emit(&#39;say&#39; , this.childrenSay);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p>父组件通过 prop 给子组件下发数据，子组件通过$emit触发事件给父组件发送消息，即 prop 向下传递，事件向上传递。</p>
-<hr>
-<h2 id="子父组件通信"><a href="#子父组件通信" class="headerlink" title="子父组件通信"></a>子父组件通信</h2><h3 id="·父组件-Father-vue，-1"><a href="#·父组件-Father-vue，-1" class="headerlink" title="·父组件  Father.vue，"></a>·父组件  Father.vue，</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;child&gt;&lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import child from &#39;.&#x2F;child&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    components:&#123;</span><br><span class="line">        child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        father()&#123;</span><br><span class="line">            console.log(&#39;子组件给父组件传的值：爸爸好&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="·子组件-Child-vue，"><a href="#·子组件-Child-vue，" class="headerlink" title="·子组件  Child.vue，"></a>·子组件  Child.vue，</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;button @click&#x3D;&quot;child()&quot;&gt;点击传值给父组件&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    methods:&#123;</span><br><span class="line">        child()&#123;</span><br><span class="line">            this.$parent.father()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
-<p>在子组件里通过this.$parent.event来调用父组件的方法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/vue%E6%8B%A6%E6%88%AA%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" class="post-title-link" itemprop="url">vue拦截器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-27 14:53:59" itemprop="dateModified" datetime="2021-01-27T14:53:59+08:00">2021-01-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue%E6%8B%A6%E6%88%AA%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">vue拦截器</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="axios的拦截器-interceptors的用途"><a href="#axios的拦截器-interceptors的用途" class="headerlink" title="axios的拦截器 interceptors的用途"></a>axios的拦截器 interceptors的用途</h4><p>axios的拦截器有什么作用呢？可以在请求之前做点什么操作，一般有三种：</p>
-<ol>
-<li>修改请求头的一些配置项</li>
-<li>给请求添加参数</li>
-<li>给请求的过程添加一些请求的图标</li>
-</ol>
-<h3 id="vue设置请求拦截器-和-响应拦截器"><a href="#vue设置请求拦截器-和-响应拦截器" class="headerlink" title="vue设置请求拦截器 和 响应拦截器"></a>vue设置请求拦截器 和 响应拦截器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 请求拦截器(在请求前会自动去做的操作)</span><br><span class="line">axios.interceptors.request.use(config &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F;获取localStorage中的token</span><br><span class="line">  let token &#x3D; localStorage.getItem(&#39;token&#39;);</span><br><span class="line">  console.log(token)</span><br><span class="line">  &#x2F;&#x2F;如果登陆了，那么自动带token发送</span><br><span class="line">  if (token) &#123;</span><br><span class="line">    config.headers.common[&#39;Authorization&#39;] &#x3D; &quot;JWT &quot; + token &#x2F;&#x2F; 头部设置</span><br><span class="line">  &#125;</span><br><span class="line">  return config;</span><br><span class="line">&#125;, error &#x3D;&gt; &#123;</span><br><span class="line">  console.log(error)</span><br><span class="line">  return Promise.reject(error); &#x2F;&#x2F;返回错误信息</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 响应拦截器(在响应时自动会做的操作)</span><br><span class="line">axios.interceptors.response.use(response &#x3D;&gt; &#123;</span><br><span class="line">  return response;&#x2F;&#x2F;返回响应</span><br><span class="line">&#125;, error &#x3D;&gt; &#123;</span><br><span class="line">  console.log(error.request.response)</span><br><span class="line">  &#x2F;&#x2F;对报错信息的状态进行判断</span><br><span class="line">  if (error.request.status &#x3D;&#x3D; 401) &#123;&#x2F;&#x2F;状态码返回为401时，要进入根目录界面</span><br><span class="line">    window.location.href &#x3D; &quot;&#x2F;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  return error</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-<h4 id><a href="#" class="headerlink" title></a></h4>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-30 15:44:11" itemprop="dateModified" datetime="2021-01-30T15:44:11+08:00">2021-01-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Welcome-to-zuoyejianjuntie-blog"><a href="#Welcome-to-zuoyejianjuntie-blog" class="headerlink" title="Welcome to zuoyejianjuntie blog"></a>Welcome to zuoyejianjuntie blog</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/django%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/django%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">django微博三方登录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-28 17:45:17" itemprop="dateModified" datetime="2021-01-28T17:45:17+08:00">2021-01-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/django%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">django微博三方登录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="django微博三方登录配置"><a href="#django微博三方登录配置" class="headerlink" title="django微博三方登录配置"></a>django微博三方登录配置</h3><h4 id="登录流程"><a href="#登录流程" class="headerlink" title="登录流程"></a>登录流程</h4><p>1.在Vue页面加载时动态发送请求获取微博授权url<br>2.django收到请求的url后，通过微博应用ID(WEIBO_APP_KEY)和回调地址(WEIBO_REDIRECT_URL)动态生成授权url返回给Vue<br>3.当用户点击上面的url进行扫码，授权成功会跳转我们的回调界面并附加code参数<br>4.Vue获取到微博返回的code后，会将code发送给django后端(WEIBO_REDIRECT_URL)</p>
-<h5 id="1-首先在settings-py里配置"><a href="#1-首先在settings-py里配置" class="headerlink" title="1.首先在settings.py里配置"></a>1.首先在settings.py里配置</h5><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="xml"># 三方登录配置</span></span><br><span class="line"><span class="xml">WEIBO_APP_KEY = &#x27;xxxx&#x27;  #API接口验证序号</span></span><br><span class="line"><span class="xml">WEIBO_REDIRECT_URL = &#x27;xxxx&#x27; #weibo回调地址</span></span><br><span class="line"><span class="xml">WEIBO_APP_SECRET = &#x27;xxxx&#x27; #API接口密钥 </span></span><br></pre></td></tr></table></figure>
-
-<h5 id="2-在vue的登录页面中"><a href="#2-在vue的登录页面中" class="headerlink" title="2.在vue的登录页面中"></a>2.在vue的登录页面中</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;a :href&#x3D;&quot;weibo_url&quot;&gt;微博登录&lt;&#x2F;a&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import axios from &quot;axios&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      weibo_url: &quot;&quot;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    &#x2F;&#x2F;去请求django生成的微博地址</span><br><span class="line">    axios.get(&quot;http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;oauth&#x2F;getweibourl&#x2F;&quot;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">      console.log(res.data);</span><br><span class="line">      this.weibo_url &#x3D; res.data;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h5 id="3-在django-views-py里写"><a href="#3-在django-views-py里写" class="headerlink" title="3.在django views.py里写"></a>3.在django views.py里写</h5><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="xml">WEIBO_URL = &#x27;https://api.weibo.com/oauth2/authorize?client_id=%s&amp;redirect_uri=%s&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="xml">class GetWEIBOurl(APIView):</span></span><br><span class="line"><span class="xml">    # 生成微博的登陆地址</span></span><br><span class="line"><span class="xml">    def get(self, request):</span></span><br><span class="line"><span class="xml">        return Response(WEIBO_URL % (WEIBO_APP_KEY, WEIBO_REDIRECT_URL))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h5 id="4-在django的views-py写"><a href="#4-在django的views-py写" class="headerlink" title="4.在django的views.py写"></a>4.在django的views.py写</h5><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="xml">class GetWEIBOaccesstoken(APIView):</span></span><br><span class="line"><span class="xml">    # 通过code值去拿</span></span><br><span class="line"><span class="xml">    def get(self, request, code):</span></span><br><span class="line"><span class="xml">        # access_token里有uid</span></span><br><span class="line"><span class="xml">        data = &#123;</span></span><br><span class="line"><span class="xml">            &#x27;client_id&#x27;: WEIBO_APP_KEY,</span></span><br><span class="line"><span class="xml">            &#x27;client_secret&#x27;: WEIBO_APP_SECRET,</span></span><br><span class="line"><span class="xml">            &#x27;grant_type&#x27;: &#x27;authorization_code&#x27;,</span></span><br><span class="line"><span class="xml">            &#x27;code&#x27;: code,</span></span><br><span class="line"><span class="xml">            &#x27;redirect_uri&#x27;: WEIBO_REDIRECT_URL</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">        url = &#x27;https://api.weibo.com/oauth2/access_token&#x27;</span></span><br><span class="line"><span class="xml">        req = requests.post(url, data=data).text</span></span><br><span class="line"><span class="xml">        uid = json.loads(req).get(&#x27;uid&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="xml">        if not uid:</span></span><br><span class="line"><span class="xml">            return Response(&#123;</span></span><br><span class="line"><span class="xml">                &#x27;code&#x27;: 500,</span></span><br><span class="line"><span class="xml">                &#x27;message&#x27;: &#x27;请重新扫码&#x27;</span></span><br><span class="line"><span class="xml">            &#125;)</span></span><br><span class="line"><span class="xml">        try:</span></span><br><span class="line"><span class="xml">            oauth_weibo = OuathWEIBO.objects.get(uid=uid)</span></span><br><span class="line"><span class="xml">        except:</span></span><br><span class="line"><span class="xml">            # 没有在平台中绑定，需要绑定一下</span></span><br><span class="line"><span class="xml">            return Response(&#123;</span></span><br><span class="line"><span class="xml">                &#x27;code&#x27;: 404,</span></span><br><span class="line"><span class="xml">                &#x27;uid&#x27;: uid,</span></span><br><span class="line"><span class="xml">            &#125;)</span></span><br><span class="line"><span class="xml">        else:</span></span><br><span class="line"><span class="xml">            # 这个用户是三方绑定过的，直接可以登陆</span></span><br><span class="line"><span class="xml">            user = oauth_weibo.user</span></span><br><span class="line"><span class="xml">            data = &#123;</span></span><br><span class="line"><span class="xml">                &#x27;user_id&#x27;: user.id,</span></span><br><span class="line"><span class="xml">                &#x27;user_name&#x27;: user.username,</span></span><br><span class="line"><span class="xml">                &#x27;user_phone&#x27;: user.phone,</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">            token = t.dumps(data).decode()</span></span><br><span class="line"><span class="xml">            return Response(&#123;</span></span><br><span class="line"><span class="xml">                &#x27;code&#x27;: 200,</span></span><br><span class="line"><span class="xml">                &#x27;token&#x27;: token,</span></span><br><span class="line"><span class="xml">                &#x27;data&#x27;: data,</span></span><br><span class="line"><span class="xml">            &#125;)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h5 id="5-在vue的路由为-‘-wb-return-url’这个的页面中写"><a href="#5-在vue的路由为-‘-wb-return-url’这个的页面中写" class="headerlink" title="5.在vue的路由为 ‘/wb_return_url’这个的页面中写"></a>5.在vue的路由为 ‘/wb_return_url’这个的页面中写</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h3&gt;加载中..........&lt;&#x2F;h3&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      code: &#39;&#39;,</span><br><span class="line">      baser_url:&quot;http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;&quot;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    &#x2F;&#x2F;拿到code</span><br><span class="line">    this.code &#x3D; this.$route.query.code</span><br><span class="line">    axios.get(this.baser_url + &#39;oauth&#x2F;getweiboaccesstoken&#x2F;&#39; + this.code + &#39;&#x2F;&#39;).then(res &#x3D;&gt; &#123;</span><br><span class="line">      if (res.data.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">        &#x2F;&#x2F;成功跳转首页</span><br><span class="line">        localStorage.setItem(&#39;token&#39;, res.data.token)</span><br><span class="line">        this.$router.push(&#123;&#39;name&#39;: &#39;index&#39;&#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      if (res.data.code &#x3D;&#x3D; 404) &#123;</span><br><span class="line">        &#x2F;&#x2F;没有绑定的去绑定</span><br><span class="line">        this.$router.push(&#123;&#39;name&#39;: &#39;login3&#39;, &#39;query&#39;: &#123;uid: res.data.uid&#125;&#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      if (res.data.code &#x3D;&#x3D; 500) &#123;</span><br><span class="line">        window.location.href &#x3D; &#39;https:&#x2F;&#x2F;api.weibo.com&#x2F;oauth2&#x2F;authorize?client_id&#x3D;24048259301&amp;redirect_uri&#x3D;http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;wb_return_url&#39;</span><br><span class="line">        &#x2F;&#x2F; 跳转的意思</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/django%E5%AE%9E%E7%8E%B0%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/django%E5%AE%9E%E7%8E%B0%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" class="post-title-link" itemprop="url">django实现三方支付</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 18:05:57" itemprop="dateCreated datePublished" datetime="2021-03-29T18:05:57+08:00">2021-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-31 14:16:12" itemprop="dateModified" datetime="2021-01-31T14:16:12+08:00">2021-01-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/django%E5%AE%9E%E7%8E%B0%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">django实现三方支付</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="django实现支付宝支付实例讲解"><a href="#django实现支付宝支付实例讲解" class="headerlink" title="django实现支付宝支付实例讲解"></a>django实现支付宝支付实例讲解</h3><h4 id="安装python-alipay-sdk"><a href="#安装python-alipay-sdk" class="headerlink" title="安装python-alipay-sdk"></a>安装python-alipay-sdk</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 安装python-alipay-sdk</span></span><br><span class="line">pip install python-alipay-sdk --upgrade</span><br></pre></td></tr></table></figure>
-<h4 id="沙箱环境配置"><a href="#沙箱环境配置" class="headerlink" title="沙箱环境配置"></a>沙箱环境配置</h4><h5 id="支付宝开放平台助手"><a href="#支付宝开放平台助手" class="headerlink" title="支付宝开放平台助手"></a>支付宝开放平台助手</h5><p>生成密钥复制公钥<br><img src="/.com//20210131141133.jpg"></p>
-<h4 id="支付宝开放平台-gt-开发者平台-gt-开发服务-gt-沙箱"><a href="#支付宝开放平台-gt-开发者平台-gt-开发服务-gt-沙箱" class="headerlink" title="支付宝开放平台 &gt; 开发者平台 &gt; 开发服务 &gt; 沙箱"></a>支付宝开放平台 &gt; 开发者平台 &gt; 开发服务 &gt; 沙箱</h4><p>把刚刚的公钥设置以下<br><img src="/.com//20210131141133.jpg"><br><img src="/.com//20210131140542.jpg"></p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p><img src="/.com//001.jpg" alt="alipay公钥密钥配置"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">alipay_pbulic_key.pem 里存放支付宝公钥 公钥需要头部和尾部包含</span><br><span class="line">app_private_key.pem 里存放自己的私钥</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alipay_pbulic_key 支付宝公钥用以下头部尾部包含:</span><br><span class="line"></span><br><span class="line">—–BEGIN PUBLIC KEY—–</span><br><span class="line"></span><br><span class="line">​ ——-公钥——-</span><br><span class="line"></span><br><span class="line">—–END PUBLIC KEY—–</span><br><span class="line"></span><br><span class="line">app_private_key私钥用以下头部尾部包含:</span><br><span class="line"></span><br><span class="line">​ —–BEGIN RSA PRIVATE KEY—–</span><br><span class="line"></span><br><span class="line">​ ——-私钥——</span><br><span class="line"></span><br><span class="line">​ —–END RSA PRIVATE KEY—–</span><br></pre></td></tr></table></figure>
-<h4 id="视图函数AliPayView-views-py"><a href="#视图函数AliPayView-views-py" class="headerlink" title="视图函数AliPayView/views.py"></a>视图函数AliPayView/views.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 支付宝支付</span></span><br><span class="line"><span class="keyword">from</span> alipay <span class="keyword">import</span> AliPay</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> django_meido.settings <span class="keyword">import</span> BASE_DIR</span><br><span class="line"></span><br><span class="line">key_dir = os.path.join(BASE_DIR, <span class="string">&#x27;alipay_key&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读</span></span><br><span class="line">app_private_key_string = <span class="built_in">open</span>(os.path.join(key_dir, <span class="string">&quot;app_private_key.pem&quot;</span>)).read()</span><br><span class="line">alipay_public_key_string = <span class="built_in">open</span>(os.path.join(key_dir, <span class="string">&quot;alipay_public_key.pem&quot;</span>)).read()</span><br><span class="line"></span><br><span class="line">alipay = AliPay(</span><br><span class="line">    appid=<span class="number">2021000116687329</span>,</span><br><span class="line">    app_notify_url=<span class="literal">None</span>,  <span class="comment"># 默认回调url 如果为空的话不能用&#x27;&#x27; 要用None</span></span><br><span class="line">    app_private_key_string=app_private_key_string,  <span class="comment">## 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,</span></span><br><span class="line">    alipay_public_key_string=alipay_public_key_string,  <span class="comment">#密钥 加密方式</span></span><br><span class="line">    sign_type=<span class="string">&#x27;RSA2&#x27;</span>, <span class="comment">#RSA 或者是 RSA2</span></span><br><span class="line">    debug=<span class="literal">True</span>  <span class="comment"># 打开调试模式</span></span><br><span class="line">    <span class="comment"># 沙箱是True 正式环境是False</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AliPayView</span>(<span class="params">APIView</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params">self, request</span>):</span></span><br><span class="line">        order_no = request.data.get(<span class="string">&#x27;order_no&#x27;</span>)  <span class="comment"># 拿取订单id</span></span><br><span class="line">        <span class="comment"># print(order_no, &#x27;-------0001&#x27;)</span></span><br><span class="line">        order = Order_no.objects.get(order_no=order_no)</span><br><span class="line">        you = order.freight <span class="comment">#运费</span></span><br><span class="line">        <span class="built_in">sum</span> = order.total <span class="comment">#总价</span></span><br><span class="line">        total_amount = you + <span class="built_in">sum</span></span><br><span class="line">        <span class="comment"># print(total_amount, &#x27;----------002&#x27;)</span></span><br><span class="line">        <span class="comment"># 构造链接对象</span></span><br><span class="line">        order_str = alipay.api_alipay_trade_page_pay(</span><br><span class="line">            subject=<span class="string">&#x27;一些东西&#x27;</span>,  <span class="comment"># 支付对象</span></span><br><span class="line">            out_trade_no=order.order_no,  <span class="comment"># 订单号</span></span><br><span class="line">            total_amount=<span class="built_in">str</span>(total_amount),  <span class="comment"># 总金额</span></span><br><span class="line">            return_url=<span class="string">&#x27;http://localhost:8080/result&#x27;</span>,  <span class="comment"># 支付回调的页面</span></span><br><span class="line">            notify_url=<span class="string">&quot;&quot;</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        BASE_URL = <span class="string">&#x27;https://openapi.alipaydev.com/gateway.do?&#x27;</span></span><br><span class="line">        <span class="comment"># 构建支付链接</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&#x27;alipay_url&#x27;</span>: BASE_URL + order_str,</span><br><span class="line">                <span class="string">&#x27;total&#x27;</span>: total_amount,</span><br><span class="line">                <span class="string">&#x27;order_no&#x27;</span>: order_no</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="vue支付页面"><a href="#vue支付页面" class="headerlink" title="vue支付页面"></a>vue支付页面</h4><p><img src="/.com//012.jpg" alt="vue中点击支付"></p>
-<h4 id="vue回调的页面"><a href="#vue回调的页面" class="headerlink" title="vue回调的页面"></a>vue回调的页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      支付,跳转中。。。。。。。。。。。。。。。。。。。。。。。</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import axios from &#39;axios&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    created()&#123;</span><br><span class="line">        let query &#x3D; this.$route.query</span><br><span class="line">        console.log(query) &#x2F;&#x2F;链接时get传参</span><br><span class="line">        axios.post(&#39;http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;goodsapp&#x2F;checkalipay&#x2F;&#39;,</span><br><span class="line">        &#123;</span><br><span class="line">            &#39;alidata&#39;:query</span><br><span class="line">        &#125;).then(res &#x3D;&gt;&#123;</span><br><span class="line">            if(res.data.code &#x3D;&#x3D; 200)&#123;</span><br><span class="line">                alert(&#39;支付成功&#39;)</span><br><span class="line">                this.$router.push(&#39;&#x2F;&#39;)</span><br><span class="line">            &#125;else(</span><br><span class="line">                alert(&#39;支付信息有误，请联系客服&#39;)</span><br><span class="line">            )</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="视图函数CheckAliPay-views-py"><a href="#视图函数CheckAliPay-views-py" class="headerlink" title="视图函数CheckAliPay/views.py"></a>视图函数CheckAliPay/views.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CheckAliPay</span>(<span class="params">APIView</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params">self, request</span>):</span></span><br><span class="line">        print(request.data)</span><br><span class="line">        alidata = <span class="built_in">dict</span>(request.data.get(<span class="string">&#x27;alidata&#x27;</span>))</span><br><span class="line">        <span class="comment"># 拿到连接参数里的订单</span></span><br><span class="line">        orer_no = alidata.get(<span class="string">&#x27;out_trade_no&#x27;</span>)</span><br><span class="line">        print(alidata, <span class="string">&#x27;------alidata&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        sign = alidata.pop(<span class="string">&#x27;sign&#x27;</span>)</span><br><span class="line">        print(sign, <span class="string">&#x27;------sign&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        rt = alipay.verify(alidata, sign)</span><br><span class="line">        print(rt, <span class="string">&#x27;-------------------rt&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> rt:</span><br><span class="line">            print(<span class="string">&#x27;支付成功&#x27;</span>)</span><br><span class="line">            order = Order_no.objects.get(order_no=orer_no)</span><br><span class="line">            order.status = <span class="number">3</span>  <span class="comment"># 修改成已支付状态</span></span><br><span class="line">            order.save()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">200</span>&#125;)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">&#x27;支付失败&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> Response(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">500</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="继续"><a href="#继续" class="headerlink" title="继续"></a>继续</h4><p><img src="/.com//20201007163049112.png" alt="支付宝支付"><br><img src="/.com//20201007163110184.png" alt="支付宝支付"><br><img src="/.com//20201007163133330.png" alt="支付宝支付"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/03/29/passby/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/passby/" class="post-title-link" itemprop="url">passby</a>
+            <a href="/2021/03/29/hellow/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -656,7 +171,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-29 18:04:48 / 修改时间：18:05:18" itemprop="dateCreated datePublished" datetime="2021-03-29T18:04:48+08:00">2021-03-29</time>
+              <time title="创建时间：2021-03-29 19:27:14 / 修改时间：19:28:19" itemprop="dateCreated datePublished" datetime="2021-03-29T19:27:14+08:00">2021-03-29</time>
             </span>
 
           
@@ -670,117 +185,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/02/05/docker%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/05/docker%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">docker操作容器、镜像、dockerfile</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-05 19:37:41" itemprop="dateCreated datePublished" datetime="2021-02-05T19:37:41+08:00">2021-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 13:44:38" itemprop="dateModified" datetime="2021-02-07T13:44:38+08:00">2021-02-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="是docker什么？"><a href="#是docker什么？" class="headerlink" title="是docker什么？"></a>是docker什么？</h3><p>· IT 软件中所说的 “Docker” ，是指容器化技术，用于支持创建和使用 Linux® 容器。<br>· 开源 Docker 社区致力于改进这类技术，并免费提供给所有用户，使之获益。<br>· Docker Inc. 公司凭借 Docker 社区产品起家，它主要负责提升社区版本的安全性，并将技术进与广大技术社区分享。此外，它还专门对这些技术产品进行完善和安全固化，以服务于企业客户。</p>
-<h3 id="Docker有什么用"><a href="#Docker有什么用" class="headerlink" title="Docker有什么用?"></a>Docker有什么用?</h3><p>借助 Docker，您可将容器当做轻巧、模块化的虚拟机使用。同时，您还将获得高度的灵活性，从而实现对容器的高效创建、部署及复制，并能将其从一个环境顺利迁移至另一个环境，从而有助于您针对云来优化您的应用。</p>
-<h3 id="一，安装docker-CentOS7"><a href="#一，安装docker-CentOS7" class="headerlink" title="一，安装docker-CentOS7"></a>一，安装docker-CentOS7</h3><p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。</p>
-<h4 id="1-安装必要的一些系统工具"><a href="#1-安装必要的一些系统工具" class="headerlink" title="1.安装必要的一些系统工具"></a>1.安装必要的一些系统工具</h4><pre><code>yum install -y yum-utils device-mapper-persistent-data lvm2 // 依赖
-</code></pre>
-<h4 id="2-添加软件源信息"><a href="#2-添加软件源信息" class="headerlink" title="2.添加软件源信息"></a>2.添加软件源信息</h4><pre><code>yum-config-manager –add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-</code></pre>
-<h4 id="3-更新并安装docker-CE"><a href="#3-更新并安装docker-CE" class="headerlink" title="3.更新并安装docker-CE"></a>3.更新并安装docker-CE</h4><pre><code>yum makecache fast 
-yum -y install docker-ce
-</code></pre>
-<h4 id="4-开启docker服务"><a href="#4-开启docker服务" class="headerlink" title="4.开启docker服务"></a>4.开启docker服务</h4><pre><code>service docker start 
-</code></pre>
-<p>在docker安装启动之后，默认会生成一个名称为docker0的网卡并且默认IP地址为172.17.0.1的网卡</p>
-<h4 id="查看docker帮助文档"><a href="#查看docker帮助文档" class="headerlink" title="查看docker帮助文档"></a>查看docker帮助文档</h4><pre><code>docker 
-man docker
-docker --help
-man docker-COMMAND
-docker COMMAND --help
-</code></pre>
-<p>ㅤㅤ<br>ㅤㅤ</p>
-<h2 id="二，docker操作"><a href="#二，docker操作" class="headerlink" title="二，docker操作"></a>二，docker操作</h2><h3 id="1-docker容器"><a href="#1-docker容器" class="headerlink" title="1.docker容器"></a>1.docker容器</h3><p>Docker 容器是一个开源的应用容器引擎，让开发者可以以统一的方式打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何安装了docker引擎的服务器上（包括流行的Linux机器、windows机器），也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。几乎没有性能开销,可以很容易地在机器和数据中心中运行。最重要的是,他们不依赖于任何语言、框架包括系统。<br>ㅤㅤ</p>
-<h4 id="安装docker容器"><a href="#安装docker容器" class="headerlink" title="安装docker容器"></a>安装docker容器</h4><h4 id="1-1-使用yum源安装"><a href="#1-1-使用yum源安装" class="headerlink" title="1.1 使用yum源安装"></a>1.1 使用yum源安装</h4><pre><code>yum -y install docker
-</code></pre>
-<h4 id="1-2-启动docker"><a href="#1-2-启动docker" class="headerlink" title="1.2 启动docker"></a>1.2 启动docker</h4><pre><code>systemctl start docker
-</code></pre>
-<h4 id="1-3-查看docker服务状态"><a href="#1-3-查看docker服务状态" class="headerlink" title="1.3 查看docker服务状态"></a>1.3 查看docker服务状态</h4><pre><code>systemctl status docker
-</code></pre>
-<p>安装成功:<br><img src="/.com//%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210207133444.jpg"></p>
-<p>ㅤㅤ</p>
-<h3 id="2-docker镜像"><a href="#2-docker镜像" class="headerlink" title="2.docker镜像"></a>2.docker镜像</h3><h4 id="2-1下载Mysql5-7镜像"><a href="#2-1下载Mysql5-7镜像" class="headerlink" title="2.1下载Mysql5.7镜像"></a>2.1下载Mysql5.7镜像</h4><pre><code>docker pull mysql:5.7
-</code></pre>
-<h4 id="2-2-验证"><a href="#2-2-验证" class="headerlink" title="2.2 验证"></a>2.2 验证</h4><pre><code>docker images
-</code></pre>
-<h4 id="3-3-pull命令"><a href="#3-3-pull命令" class="headerlink" title="3.3 pull命令"></a>3.3 pull命令</h4><pre><code>docker pull --help
-</code></pre>
-<p>出现信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1j8y1bab0djl9gdp33Z ~]# docker pull --help</span><br><span class="line"></span><br><span class="line"> Usage:  docker pull [OPTIONS] NAME[:TAG|@DIGEST]</span><br><span class="line"></span><br><span class="line">Pull an image or a repository from a registry</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">-a, --all-tags                Download all tagged images in the repository</span><br><span class="line">      --disable-content-trust   Skip image verification (default true)</span><br><span class="line">    --help                    Print usage</span><br></pre></td></tr></table></figure>
-<p>-a, –all-tags=true|false: 是否获取仓库中所有镜像，默认为否；<br>–disable-content-trust: 跳过镜像内容的校验，默认为 true;</p>
-<h4 id><a href="#" class="headerlink" title></a></h4><p>ㅤㅤ<br>ㅤㅤ</p>
-<h3 id="3-dockerfile"><a href="#3-dockerfile" class="headerlink" title="3.dockerfile"></a>3.dockerfile</h3><h5 id="3-1-什么是dockerfile"><a href="#3-1-什么是dockerfile" class="headerlink" title="3.1 什么是dockerfile?"></a>3.1 什么是dockerfile?</h5><p>dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
-<h4 id="3-2-FROM-和-RUN-指令的作用"><a href="#3-2-FROM-和-RUN-指令的作用" class="headerlink" title="3.2 FROM 和 RUN 指令的作用"></a>3.2 FROM 和 RUN 指令的作用</h4><p>FROM：定制的镜像都是基于 FROM 的镜像，这里的 nginx 就是定制需要的基础镜像。后续的操作都是基于 nginx。</p>
-<p>RUN：用于执行后面跟着的命令行命令。有以下俩种格式：</p>
-<p>shell 格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN &lt;命令行命令&gt;</span><br></pre></td></tr></table></figure>
-<p>exec 格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;]</span><br></pre></td></tr></table></figure>
-<p>ADD：将本地文件添加到容器中，tar类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似wget<br>COPY：功能类似ADD，但是是不会自动解压文件，也不能访问网络资源<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ<br>ㅤㅤ</p>
+          <p>此刻打盹，你将做梦；而此刻学习，你将圆梦</p>
 
       
     </div>
@@ -800,7 +205,7 @@ docker COMMAND --help
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/02/05/%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/01/31/axios%E5%B0%81%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -814,7 +219,7 @@ docker COMMAND --help
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/05/%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/" class="post-title-link" itemprop="url">视频直播</a>
+            <a href="/2021/01/31/axios%E5%B0%81%E8%A3%85/" class="post-title-link" itemprop="url">axios封装</a>
         </h2>
 
         <div class="post-meta">
@@ -825,7 +230,7 @@ docker COMMAND --help
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-02-05 14:43:37 / 修改时间：19:32:45" itemprop="dateCreated datePublished" datetime="2021-02-05T14:43:37+08:00">2021-02-05</time>
+              <time title="创建时间：2021-01-31 13:11:02 / 修改时间：15:21:52" itemprop="dateCreated datePublished" datetime="2021-01-31T13:11:02+08:00">2021-01-31</time>
             </span>
 
           
@@ -839,91 +244,15 @@ docker COMMAND --help
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="使用云主机-vue实现视频直播"><a href="#使用云主机-vue实现视频直播" class="headerlink" title="使用云主机+vue实现视频直播"></a>使用云主机+vue实现视频直播</h3><h4 id="需要用到的工具：obs-直播软件-实现推流和vlc-媒体播放器-实现拉流"><a href="#需要用到的工具：obs-直播软件-实现推流和vlc-媒体播放器-实现拉流" class="headerlink" title="需要用到的工具：obs(直播软件)实现推流和vlc(媒体播放器)实现拉流"></a>需要用到的工具：obs(直播软件)实现推流和vlc(媒体播放器)实现拉流</h4><p><img src="/.com//snipaste20210205_173041.jpg"><br>obs下载链接：<a target="_blank" rel="noopener" href="https://obsproject.com/">https://obsproject.com/</a><br><img src="/.com//snipaste20210205_173046.jpg"><br>vlc下载链接：<a target="_blank" rel="noopener" href="https://www.videolan.org/">https://www.videolan.org/</a></p>
-<h3 id="使用HTTP-FLV直播协议"><a href="#使用HTTP-FLV直播协议" class="headerlink" title="使用HTTP-FLV直播协议"></a>使用HTTP-FLV直播协议</h3><h4 id="流媒体数据封装成-FLV-格式"><a href="#流媒体数据封装成-FLV-格式" class="headerlink" title="流媒体数据封装成 FLV 格式"></a>流媒体数据封装成 FLV 格式</h4><p>FLV: 简单轻量、加载速度极快、播放快<br>· 推流，服务器把视频封装为.flv节点式的<br>· 浏览器拉流，下载视频<br>· Content-Type: rtmp/flv<br>浏览器渲染数据的标准Content-Type格式</p>
-<h3 id="一-使用云主机的centos实现直播服务器"><a href="#一-使用云主机的centos实现直播服务器" class="headerlink" title="一, 使用云主机的centos实现直播服务器"></a>一, 使用云主机的centos实现直播服务器</h3><p>可以使用本地连接云主机或xshell来配置</p>
-<h4 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h4><h4 id="1-创建nginx目录"><a href="#1-创建nginx目录" class="headerlink" title="1.创建nginx目录"></a>1.创建nginx目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;usr&#x2F;local&#x2F;nginx-flv</span><br><span class="line"># 创建了一个安装目录</span><br><span class="line">mkdir &#x2F;home&#x2F;flv-tools</span><br><span class="line"># 存储所需软件</span><br></pre></td></tr></table></figure>
-<h4 id="2-下载nginx"><a href="#2-下载nginx" class="headerlink" title="2.下载nginx"></a>2.下载nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.18.0.tar.gz</span><br></pre></td></tr></table></figure>
-<h4 id="3-解压nginx"><a href="#3-解压nginx" class="headerlink" title="3.解压nginx"></a>3.解压nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.18.0.tar.gz nginx-1.18.0&#x2F;</span><br></pre></td></tr></table></figure>
-<h3 id="4-解压直播模块"><a href="#4-解压直播模块" class="headerlink" title="4.解压直播模块"></a>4.解压直播模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip nginx-http-flv-module.zip </span><br></pre></td></tr></table></figure>
-<h4 id="5-进入解压好的nginx下目录，并进行安装前的配置"><a href="#5-进入解压好的nginx下目录，并进行安装前的配置" class="headerlink" title="5.进入解压好的nginx下目录，并进行安装前的配置"></a>5.进入解压好的nginx下目录，并进行安装前的配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.18.0</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx-flv --add-module&#x3D;&#x2F;home&#x2F;flv-tools&#x2F;nginx-http-flv-module-master</span><br><span class="line"># --prefix: 配置安装路径</span><br><span class="line">#--add-module: 添加安装插件</span><br></pre></td></tr></table></figure>
-<h4 id="6-编译及安装"><a href="#6-编译及安装" class="headerlink" title="6.编译及安装"></a>6.编译及安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make </span><br><span class="line">make install </span><br><span class="line">------------</span><br><span class="line">make &amp;&amp; make install </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="7-配置文件修改"><a href="#7-配置文件修改" class="headerlink" title="7.配置文件修改"></a>7.配置文件修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">rtmp_auto_push on;</span><br><span class="line">rtmp_auto_push_reconnect 1s;</span><br><span class="line">rtmp_socket_dir &#x2F;tmp;</span><br><span class="line"></span><br><span class="line">rtmp&#123;</span><br><span class="line">	out_queue 4096;</span><br><span class="line">	out_cork 8;</span><br><span class="line">	max_streams 128;</span><br><span class="line">	timeout 15s;</span><br><span class="line">	drop_idle_publisher 15s;</span><br><span class="line">	log_interval 5s;</span><br><span class="line">	log_size 1m;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen 1935; # 推流端口</span><br><span class="line">		server_name zege;</span><br><span class="line">		</span><br><span class="line">		application live &#123;	# 配置推流地址</span><br><span class="line">			live on; # 打开推流</span><br><span class="line">			# gop_cache on;</span><br><span class="line">			# rtmp:&#x2F;&#x2F;123.123.123.123:1935&#x2F;live&#x2F;test</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="8-配置文件http拉流部分"><a href="#8-配置文件http拉流部分" class="headerlink" title="8.配置文件http拉流部分"></a>8.配置文件http拉流部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	include       mime.types;</span><br><span class="line">	default_type  application&#x2F;octet-stream;</span><br><span class="line">	sendfile        on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen       8080; # 拉流通过8080去拉流</span><br><span class="line">		# http:&#x2F;&#x2F;123.123.123.123:8080&#x2F;live&#x2F;?port&#x3D;1935&amp;stream&#x3D;test</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		location &#x2F;live &#123;</span><br><span class="line">			flv_live on;</span><br><span class="line">			chunked_transfer_encoding  on;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Origin&#39; &#39;*&#39;;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="9-关闭旧服务"><a href="#9-关闭旧服务" class="headerlink" title="9.关闭旧服务"></a>9.关闭旧服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s stop</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s reload</span><br><span class="line"># 重启</span><br></pre></td></tr></table></figure>
-<h4 id="10-开启新服务"><a href="#10-开启新服务" class="headerlink" title="10.开启新服务"></a>10.开启新服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;conf&#x2F;nginx.conf</span><br></pre></td></tr></table></figure>
-<h3 id="二-打开obs设置推流地址和vlc拉流"><a href="#二-打开obs设置推流地址和vlc拉流" class="headerlink" title="二, 打开obs设置推流地址和vlc拉流"></a>二, 打开obs设置推流地址和vlc拉流</h3><p><img src="/.com//snipaste20210205_190804.jpg"><br><img src="/.com//snipaste20210205_191433.jpg"></p>
-<h3 id="三-vue实现拉流"><a href="#三-vue实现拉流" class="headerlink" title="三, vue实现拉流"></a>三, vue实现拉流</h3><h4 id="1-安装flv-js开源工具，进行拉流，哔哩哔哩开源的拉流js"><a href="#1-安装flv-js开源工具，进行拉流，哔哩哔哩开源的拉流js" class="headerlink" title="1.安装flv.js开源工具，进行拉流，哔哩哔哩开源的拉流js"></a>1.安装<strong>flv.js</strong>开源工具，进行拉流，哔哩哔哩开源的拉流js</h4><p>video.js 对rtmp拉流</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install flv.js --save</span><br></pre></td></tr></table></figure>
-<h4 id="2-导包"><a href="#2-导包" class="headerlink" title="2.导包"></a>2.导包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import flv from &#39;flv.js&#39;;</span><br></pre></td></tr></table></figure>
-<h4 id="3-构建页面标签，播放标签并初始化"><a href="#3-构建页面标签，播放标签并初始化" class="headerlink" title="3.构建页面标签，播放标签并初始化"></a>3.构建页面标签，播放标签并初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  </span><br><span class="line">    &lt;div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;video id&#x3D;&quot;videoElement&quot; controls muted&gt;</span><br><span class="line">  	        Your browser is too old which doesn&#39;t support HTML5 video.</span><br><span class="line">        &lt;&#x2F;video&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;初始化</span><br><span class="line">     mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
-<p>页面效果：<br><img src="/.com//snipaste20210205_193126.jpg"></p>
+          <h2 id="axios封装"><a href="#axios封装" class="headerlink" title="axios封装"></a>axios封装</h2><p>首先要有axios包，<br>在src目录中的http文件夹下配置axios属性，<br>最后在vue页面中调用请求接口即可。</p>
+<h3 id="1-安装axios"><a href="#1-安装axios" class="headerlink" title="1.安装axios"></a>1.安装axios</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">npm install axios -save &#x2F;&#x2F; 安装axios</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xishanzaiqi/2021/02/04/%E6%97%A0%E9%99%90%E6%9E%81%E5%88%86%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="西瓜尊快乐吃香蕉">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/04/%E6%97%A0%E9%99%90%E6%9E%81%E5%88%86%E7%B1%BB/" class="post-title-link" itemprop="url">无限极分类自关联递归</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-02-04 12:59:25 / 修改时间：14:36:28" itemprop="dateCreated datePublished" datetime="2021-02-04T12:59:25+08:00">2021-02-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="django自关联递归来实现无限级分类"><a href="#django自关联递归来实现无限级分类" class="headerlink" title="django自关联递归来实现无限级分类"></a>django自关联递归来实现无限级分类</h3><p>所谓的无限极分类是啥？其实简单点说就是一个人类可以繁衍出多个后代，然后一个后代又可以分另外多个后代这样无限繁衍下去，就好象linux系统你可以新建一个文件夹，然后在这个文件夹里又可以建一些个文件夹，在文件夹底下还可以建一些文件夹一样，随后使用tree命令就可以查看文件夹目录层级。</p>
-<h4 id="1-首先在model-py，新建一个类别模型"><a href="#1-首先在model-py，新建一个类别模型" class="headerlink" title="1.首先在model.py，新建一个类别模型"></a>1.首先在model.py，新建一个类别模型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cate</span>(<span class="params">models.Model</span>):</span></span><br><span class="line">    <span class="comment"># 分类名称</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    <span class="comment"># 父级id</span></span><br><span class="line">    pid = models.ForeignKey(<span class="string">&#x27;self&#x27;</span>, on_delete=models.SET_NULL, null=<span class="literal">True</span>, blank=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 表名</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br></pre></td></tr></table></figure>
-<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="2-序列化器serializer-py"><a href="#2-序列化器serializer-py" class="headerlink" title="2.序列化器serializer.py"></a>2.序列化器serializer.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Cate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CateSer</span>(<span class="params">serializers.ModelSerializer</span>):</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Cate</span><br><span class="line">        fields = <span class="string">&quot;__all__&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="-1"><a href="#-1" class="headerlink" title></a></h3><h3 id="3-视图views-py"><a href="#3-视图views-py" class="headerlink" title="3.视图views.py"></a>3.视图views.py</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, HttpResponse</span><br><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> APIView</span><br><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> Response</span><br><span class="line"><span class="keyword">from</span> .serializer <span class="keyword">import</span> CateSer</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Cate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 由于django序列化出来的类不具备层级结构，写好一个用来递归的方法：</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Tree</span>(<span class="params">datas</span>):</span></span><br><span class="line">    lists = [] <span class="comment">#最后的结果存放在这里</span></span><br><span class="line">    tree = &#123;&#125; <span class="comment">#相当于是承接部分</span></span><br><span class="line">    parent_id = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> datas:</span><br><span class="line">        <span class="comment">#将datas循环，然后加入一个dict中</span></span><br><span class="line">        item = i</span><br><span class="line">        tree[item[<span class="string">&#x27;id&#x27;</span>]] = item</span><br><span class="line">        <span class="comment"># &#123;  1:&#123;id:1&#125;,  2:&#123;id:2&#125;,  3:&#123;id:3&#125;  &#125;</span></span><br><span class="line">    root = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> datas:</span><br><span class="line">        obj = i</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obj[<span class="string">&#x27;pid&#x27;</span>]: <span class="comment">#判断不在obj中的父级pid</span></span><br><span class="line">            root = tree[obj[<span class="string">&#x27;id&#x27;</span>]]</span><br><span class="line">            lists.append(root)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            parent_id = obj[<span class="string">&#x27;pid&#x27;</span>]</span><br><span class="line">            <span class="comment"># 判断父级是否有孩子字段（childlist），如果有将当前数据加入，如果没有添加（childlist）后再加入</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;childlist&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> tree[parent_id]:</span><br><span class="line">                tree[parent_id][<span class="string">&#x27;childlist&#x27;</span>] = []</span><br><span class="line">            <span class="comment"># 加入父级用户的记录</span></span><br><span class="line">            tree[parent_id][<span class="string">&#x27;childlist&#x27;</span>].append(tree[obj[<span class="string">&#x27;id&#x27;</span>]])</span><br><span class="line">    <span class="keyword">return</span> lists</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时我们写一个视图接口，用来从数据库中读取数据</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTree</span>(<span class="params">APIView</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self, request</span>):</span></span><br><span class="line">        <span class="comment"># 获取订单列表</span></span><br><span class="line">        catelist = Cate.objects.<span class="built_in">filter</span>()</span><br><span class="line">        <span class="comment"># 序列化</span></span><br><span class="line">        catelist_ser = CateSer(catelist, many=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        mylist = Tree(catelist_ser.data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Response(mylist)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>使用测试工具postman结果以下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;id&quot;: 6,</span><br><span class="line">        &quot;name&quot;: &quot;111&quot;,</span><br><span class="line">        &quot;pid&quot;: null,</span><br><span class="line">        &quot;childlist&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;id&quot;: 7,</span><br><span class="line">                &quot;name&quot;: &quot;222&quot;,</span><br><span class="line">                &quot;pid&quot;: 6,</span><br><span class="line">                &quot;childlist&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;id&quot;: 8,</span><br><span class="line">                        &quot;name&quot;: &quot;333&quot;,</span><br><span class="line">                        &quot;pid&quot;: 7,</span><br><span class="line">                        &quot;childlist&quot;: [</span><br><span class="line">                            &#123;</span><br><span class="line">                                &quot;id&quot;: 9,</span><br><span class="line">                                &quot;name&quot;: &quot;444&quot;,</span><br><span class="line">                                &quot;pid&quot;: 8,</span><br><span class="line">                                &quot;childlist&quot;: [</span><br><span class="line">                                    &#123;</span><br><span class="line">                                        &quot;id&quot;: 10,</span><br><span class="line">                                        &quot;name&quot;: &quot;555&quot;,</span><br><span class="line">                                        &quot;pid&quot;: 9,</span><br><span class="line">                                        &quot;childlist&quot;: [</span><br><span class="line">                                            &#123;</span><br><span class="line">                                                &quot;id&quot;: 11,</span><br><span class="line">                                                &quot;name&quot;: &quot;666&quot;,</span><br><span class="line">                                                &quot;pid&quot;: 10,</span><br><span class="line">                                                &quot;childlist&quot;: [</span><br><span class="line">                                                    &#123;</span><br><span class="line">                                                        &quot;id&quot;: 12,</span><br><span class="line">                                                        &quot;name&quot;: &quot;777&quot;,</span><br><span class="line">                                                        &quot;pid&quot;: 11,</span><br><span class="line">                                                        &quot;childlist&quot;: [</span><br><span class="line">                                                            &#123;</span><br><span class="line">                                                                &quot;id&quot;: 13,</span><br><span class="line">                                                                &quot;name&quot;: &quot;888&quot;,</span><br><span class="line">                                                                &quot;pid&quot;: 12,</span><br><span class="line">                                                                &quot;childlist&quot;: [</span><br><span class="line">                                                                    &#123;</span><br><span class="line">                                                                        &quot;id&quot;: 14,</span><br><span class="line">                                                                        &quot;name&quot;: &quot;999&quot;,</span><br><span class="line">                                                                        &quot;pid&quot;: 13</span><br><span class="line">                                                                    &#125;</span><br><span class="line">                                                                ]</span><br><span class="line">                                                            &#125;</span><br><span class="line">                                                        ]</span><br><span class="line">                                                    &#125;</span><br><span class="line">                                                ]</span><br><span class="line">                                            &#125;</span><br><span class="line">                                        ]</span><br><span class="line">                                    &#125;</span><br><span class="line">                                ]</span><br><span class="line">                            &#125;</span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置axios基本的属性"><a href="#2-配置axios基本的属性" class="headerlink" title="2.配置axios基本的属性"></a>2.配置axios基本的属性</h3><p>在vue的src目录下创建http,分别创建index.js和api.js<br><img src="/.com//snipaste20210131_151933.jpg"></p>
+<h4 id="index-js用来封装axios和请求的方法"><a href="#index-js用来封装axios和请求的方法" class="headerlink" title="index.js用来封装axios和请求的方法"></a>index.js用来封装axios和请求的方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 配置axios基本的属性</span><br><span class="line"></span><br><span class="line">const axios &#x3D; require(&#39;axios&#39;)</span><br><span class="line"></span><br><span class="line">axios.defaults.baseURL &#x3D; &#39;http:&#x2F;&#x2F;127.0.0.1:8000&#39; &#x2F;&#x2F; 请求的接口主域名</span><br><span class="line">axios.defaults.timeout &#x3D; 3000  &#x2F;&#x2F; 请求超时的设置 3s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 请求拦截器(在请求前会自动去做的操作)，如果登陆了，那么自动带token发送</span><br><span class="line">axios.interceptors.request.use(config &#x3D;&gt; &#123;</span><br><span class="line">  let token &#x3D; localStorage.getItem(&#39;token&#39;);</span><br><span class="line">  if (token) &#123;</span><br><span class="line">    axios.defaults.headers[&#39;Authorization&#39;] &#x3D; token &#x2F;&#x2F; 头部设置</span><br><span class="line">  &#125;</span><br><span class="line">  return config;</span><br><span class="line">&#125;, error &#x3D;&gt; &#123;</span><br><span class="line">  return Promise.reject(error);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 响应拦截器(在响应时自动会做的操作)，比如状态码返回为401时，要进入login界面</span><br><span class="line">&#x2F;&#x2F; axios.interceptors.response.use(response &#x3D;&gt; &#123;</span><br><span class="line">&#x2F;&#x2F;   &#x2F;&#x2F; 200</span><br><span class="line">&#x2F;&#x2F;   return response.data;</span><br><span class="line">&#x2F;&#x2F; &#125;, error &#x3D;&gt; &#123;</span><br><span class="line">&#x2F;&#x2F;   return error</span><br><span class="line">&#x2F;&#x2F; &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">  post方法，对应post请求</span><br><span class="line">  @param &#123;String&#125; url [请求的url地址]</span><br><span class="line">  @param &#123;Object&#125; params [请求时携带的参数]</span><br><span class="line">  @param &#123;Object&#125; headers [请求时的头部]</span><br><span class="line"> **&#x2F;</span><br><span class="line"></span><br><span class="line">#GET</span><br><span class="line">export function get(url, params, headers) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    axios.get(url, &#123;params, headers&#125;).then(res &#x3D;&gt; &#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">    &#125;).catch(err &#x3D;&gt; &#123;</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#POST</span><br><span class="line">export function post(url, params, headers) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    axios.post(url, params, headers).then((res) &#x3D;&gt; &#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">    &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; debugger</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#PUT</span><br><span class="line">export function put(url, params, headers) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    axios.put(url, params, headers).then((res) &#x3D;&gt; &#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">    &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; debugger</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#DELETE</span><br><span class="line">export function del(url, params, headers) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    axios.delete(url, &#123;data: params, headers&#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">      resolve(res)</span><br><span class="line">    &#125;).catch((err) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; debugger</span><br><span class="line">      reject(err)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default axios;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="api-js用来调用方法的"><a href="#api-js用来调用方法的" class="headerlink" title="api.js用来调用方法的"></a>api.js用来调用方法的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import &#123; get, post, put, del &#125; from &#39;.&#x2F;index&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;写接口</span><br><span class="line">export const Likecourse &#x3D; parameter &#x3D;&gt; &#123;</span><br><span class="line">  return post(&#x2F;&#x2F;return后面可以放 post ，get ，delete ，put</span><br><span class="line">      &#39;likecourse&#x2F;&#39;,</span><br><span class="line">      parameter,</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-在文件夹view下分创建vue文件夹"><a href="#3-在文件夹view下分创建vue文件夹" class="headerlink" title="3.在文件夹view下分创建vue文件夹"></a>3.在文件夹view下分创建vue文件夹</h3><p><img src="/.com//snipaste20210131_144447.jpg"></p>
+<h4 id="index-js-里导入router下index-js的路由"><a href="#index-js-里导入router下index-js的路由" class="headerlink" title="index.js 里导入router下index.js的路由"></a>index.js 里导入router下index.js的路由</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import Home from &#39;.&#x2F;Home.vue&#39;</span><br><span class="line"></span><br><span class="line">export default Home</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="vue页面"><a href="#vue页面" class="headerlink" title="vue页面"></a>vue页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;button  @click&#x3D;&quot;Look&quot;&gt;点我&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F;  http&#x2F;api中的courseCate接口</span><br><span class="line">import &#123; courseCate,&#125; from &quot;@&#x2F;http&#x2F;api&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;Home&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">      Look()&#123;</span><br><span class="line">        courseCate().then((res) &#x3D;&gt; &#123;</span><br><span class="line">          console.log(res.data)</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -940,9 +269,6 @@ docker COMMAND --help
 
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1007,17 +333,9 @@ docker COMMAND --help
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
