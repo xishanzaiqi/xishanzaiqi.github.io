@@ -1,54 +1,65 @@
-$(document).ready(function() {
-	$(window).scroll(function(){  //只要窗口滚动,就触发下面代码 
-        var scrollt = document.documentElement.scrollTop + document.body.scrollTop; //获取滚动后的高度 
-        if(scrollt>200){  //判断滚动后高度超过200px
-            $("#gotop").fadeIn(400); //淡出
-			if($(window).width() >= 1200){
-				$(".navbar").stop().fadeTo(400, 0.2);
-			}
-        }else{
-            $("#gotop").fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动
-            if($(window).width() >= 1200){
-				$(".navbar").stop().fadeTo(400, 1);
-            }
-        }
-    });
-    $("#gotop").click(function(){ //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部        
-		$("html,body").animate({scrollTop:"0px"},200);
-    });
-	$(".navbar").mouseenter(function(){
-		$(".navbar").fadeTo(100, 1);
-	});
-    $(".navbar").mouseleave(function(){
-		var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-		if (scrollt>200) {
-			$(".navbar").fadeTo(100, 0.2);
-		}
-	});
+/* global KEEP */
 
-	replaceMeta();
+window.addEventListener('DOMContentLoaded', () => {
 
-	$(window).resize(function(){
-		replaceMeta();
-	});
+  KEEP.themeInfo = {
+    theme: `Keep v${KEEP.theme_config.version}`,
+    author: 'XPoet',
+    repository: 'https://github.com/XPoet/hexo-theme-keep'
+  }
+
+  KEEP.localStorageKey = 'KEEP-THEME-STATUS';
+
+  KEEP.styleStatus = {
+    isExpandPageWidth: false,
+    isDark: false,
+    fontSizeLevel: 0,
+    isOpenPageAside: true
+  }
+
+  // print theme base info
+  KEEP.printThemeInfo = () => {
+    console.log(`\n %c ${KEEP.themeInfo.theme} %c ${KEEP.themeInfo.repository} \n`, `color: #fadfa3; background: #333; padding: 5px 0;`, `background: #fadfa3; padding: 5px 0;`);
+  }
+
+  // set styleStatus to localStorage
+  KEEP.setStyleStatus = () => {
+    localStorage.setItem(KEEP.localStorageKey, JSON.stringify(KEEP.styleStatus));
+  }
+
+  // get styleStatus from localStorage
+  KEEP.getStyleStatus = () => {
+    let temp = localStorage.getItem(KEEP.localStorageKey);
+    if (temp) {
+      temp = JSON.parse(temp);
+      for (let key in KEEP.styleStatus) {
+        KEEP.styleStatus[key] = temp[key];
+      }
+      return temp;
+    } else {
+      return null;
+    }
+  }
+
+  KEEP.refresh = () => {
+    KEEP.initUtils();
+    KEEP.initHeaderShrink();
+    KEEP.initModeToggle();
+    KEEP.initBack2Top();
+
+    if (KEEP.theme_config.local_search.enable === true) {
+      KEEP.initLocalSearch();
+    }
+
+    if (KEEP.theme_config.code_copy.enable === true) {
+      KEEP.initCodeCopy();
+    }
+
+    if (KEEP.theme_config.lazyload.enable === true) {
+      KEEP.initLazyLoad();
+    }
+  }
+
+  KEEP.printThemeInfo();
+  KEEP.refresh();
 });
-
-replaceMeta = function(){
-	if ($(window).width() < 980) {
-		if ($("#side_meta #post_meta").length>0) {
-			$("#post_meta").appendTo("#top_meta");
-		}
-		if ($("#sidebar #site_search").length>0) {
-			$("#site_search").appendTo("#top_search");
-			$("#site_search #st-search-input").css("width", "95%");
-		}
-	} else {
-		if ($("#top_meta #post_meta").length>0) {
-			$("#post_meta").appendTo("#side_meta");
-		}
-		if ($("#top_search #site_search").length>0) {
-			$("#site_search").prependTo("#sidebar");
-			$("#site_search #st-search-input").css("width", "85%");
-		}
-	}
-}
