@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="吴清落">
+    
+    <title>
+        
+            视频直播 |
+        
+        西山再起
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"github.com","root":"/","language":"zh-CN"};
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Once you stop learning, you will begin to fail."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                西山再起
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">视频直播</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">吴清落</span>
+                        
+                            <span class="author-label">Python</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-02-05 14:43:37
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="使用云主机-vue实现视频直播"><a href="#使用云主机-vue实现视频直播" class="headerlink" title="使用云主机+vue实现视频直播"></a>使用云主机+vue实现视频直播</h3><h4 id="需要用到的工具：obs-直播软件-实现推流和vlc-媒体播放器-实现拉流"><a href="#需要用到的工具：obs-直播软件-实现推流和vlc-媒体播放器-实现拉流" class="headerlink" title="需要用到的工具：obs(直播软件)实现推流和vlc(媒体播放器)实现拉流"></a>需要用到的工具：obs(直播软件)实现推流和vlc(媒体播放器)实现拉流</h4><p><img src="/.com//snipaste20210205_173041.jpg"><br>obs下载链接：<a class="link" target="_blank" rel="noopener" href="https://obsproject.com/">https://obsproject.com/<i class="fas fa-external-link-alt"></i></a><br><img src="/.com//snipaste20210205_173046.jpg"><br>vlc下载链接：<a class="link" target="_blank" rel="noopener" href="https://www.videolan.org/">https://www.videolan.org/<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="使用HTTP-FLV直播协议"><a href="#使用HTTP-FLV直播协议" class="headerlink" title="使用HTTP-FLV直播协议"></a>使用HTTP-FLV直播协议</h3><h4 id="流媒体数据封装成-FLV-格式"><a href="#流媒体数据封装成-FLV-格式" class="headerlink" title="流媒体数据封装成 FLV 格式"></a>流媒体数据封装成 FLV 格式</h4><p>FLV: 简单轻量、加载速度极快、播放快<br>· 推流，服务器把视频封装为.flv节点式的<br>· 浏览器拉流，下载视频<br>· Content-Type: rtmp/flv<br>浏览器渲染数据的标准Content-Type格式</p>
+<h3 id="一-使用云主机的centos实现直播服务器"><a href="#一-使用云主机的centos实现直播服务器" class="headerlink" title="一, 使用云主机的centos实现直播服务器"></a>一, 使用云主机的centos实现直播服务器</h3><p>可以使用本地连接云主机或xshell来配置</p>
+<h4 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h4><h4 id="1-创建nginx目录"><a href="#1-创建nginx目录" class="headerlink" title="1.创建nginx目录"></a>1.创建nginx目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;usr&#x2F;local&#x2F;nginx-flv</span><br><span class="line"># 创建了一个安装目录</span><br><span class="line">mkdir &#x2F;home&#x2F;flv-tools</span><br><span class="line"># 存储所需软件</span><br></pre></td></tr></table></figure>
+<h4 id="2-下载nginx"><a href="#2-下载nginx" class="headerlink" title="2.下载nginx"></a>2.下载nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.18.0.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="3-解压nginx"><a href="#3-解压nginx" class="headerlink" title="3.解压nginx"></a>3.解压nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.18.0.tar.gz nginx-1.18.0&#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="4-解压直播模块"><a href="#4-解压直播模块" class="headerlink" title="4.解压直播模块"></a>4.解压直播模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip nginx-http-flv-module.zip </span><br></pre></td></tr></table></figure>
+<h4 id="5-进入解压好的nginx下目录，并进行安装前的配置"><a href="#5-进入解压好的nginx下目录，并进行安装前的配置" class="headerlink" title="5.进入解压好的nginx下目录，并进行安装前的配置"></a>5.进入解压好的nginx下目录，并进行安装前的配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.18.0</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx-flv --add-module&#x3D;&#x2F;home&#x2F;flv-tools&#x2F;nginx-http-flv-module-master</span><br><span class="line"># --prefix: 配置安装路径</span><br><span class="line">#--add-module: 添加安装插件</span><br></pre></td></tr></table></figure>
+<h4 id="6-编译及安装"><a href="#6-编译及安装" class="headerlink" title="6.编译及安装"></a>6.编译及安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make </span><br><span class="line">make install </span><br><span class="line">------------</span><br><span class="line">make &amp;&amp; make install </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="7-配置文件修改"><a href="#7-配置文件修改" class="headerlink" title="7.配置文件修改"></a>7.配置文件修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">rtmp_auto_push on;</span><br><span class="line">rtmp_auto_push_reconnect 1s;</span><br><span class="line">rtmp_socket_dir &#x2F;tmp;</span><br><span class="line"></span><br><span class="line">rtmp&#123;</span><br><span class="line">	out_queue 4096;</span><br><span class="line">	out_cork 8;</span><br><span class="line">	max_streams 128;</span><br><span class="line">	timeout 15s;</span><br><span class="line">	drop_idle_publisher 15s;</span><br><span class="line">	log_interval 5s;</span><br><span class="line">	log_size 1m;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen 1935; # 推流端口</span><br><span class="line">		server_name zege;</span><br><span class="line">		</span><br><span class="line">		application live &#123;	# 配置推流地址</span><br><span class="line">			live on; # 打开推流</span><br><span class="line">			# gop_cache on;</span><br><span class="line">			# rtmp:&#x2F;&#x2F;123.123.123.123:1935&#x2F;live&#x2F;test</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="8-配置文件http拉流部分"><a href="#8-配置文件http拉流部分" class="headerlink" title="8.配置文件http拉流部分"></a>8.配置文件http拉流部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	include       mime.types;</span><br><span class="line">	default_type  application&#x2F;octet-stream;</span><br><span class="line">	sendfile        on;</span><br><span class="line">	keepalive_timeout  65;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen       8080; # 拉流通过8080去拉流</span><br><span class="line">		# http:&#x2F;&#x2F;123.123.123.123:8080&#x2F;live&#x2F;?port&#x3D;1935&amp;stream&#x3D;test</span><br><span class="line">		server_name  localhost;</span><br><span class="line">		location &#x2F;live &#123;</span><br><span class="line">			flv_live on;</span><br><span class="line">			chunked_transfer_encoding  on;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Origin&#39; &#39;*&#39;;</span><br><span class="line">			add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="9-关闭旧服务"><a href="#9-关闭旧服务" class="headerlink" title="9.关闭旧服务"></a>9.关闭旧服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s stop</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-rtmp&#x2F;sbin&#x2F;nginx -s reload</span><br><span class="line"># 重启</span><br></pre></td></tr></table></figure>
+<h4 id="10-开启新服务"><a href="#10-开启新服务" class="headerlink" title="10.开启新服务"></a>10.开启新服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx-flv&#x2F;conf&#x2F;nginx.conf</span><br></pre></td></tr></table></figure>
+<h3 id="二-打开obs设置推流地址和vlc拉流"><a href="#二-打开obs设置推流地址和vlc拉流" class="headerlink" title="二, 打开obs设置推流地址和vlc拉流"></a>二, 打开obs设置推流地址和vlc拉流</h3><p><img src="/.com//snipaste20210205_190804.jpg"><br><img src="/.com//snipaste20210205_191433.jpg"></p>
+<h3 id="三-vue实现拉流"><a href="#三-vue实现拉流" class="headerlink" title="三, vue实现拉流"></a>三, vue实现拉流</h3><h4 id="1-安装flv-js开源工具，进行拉流，哔哩哔哩开源的拉流js"><a href="#1-安装flv-js开源工具，进行拉流，哔哩哔哩开源的拉流js" class="headerlink" title="1.安装flv.js开源工具，进行拉流，哔哩哔哩开源的拉流js"></a>1.安装<strong>flv.js</strong>开源工具，进行拉流，哔哩哔哩开源的拉流js</h4><p>video.js 对rtmp拉流</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install flv.js --save</span><br></pre></td></tr></table></figure>
+<h4 id="2-导包"><a href="#2-导包" class="headerlink" title="2.导包"></a>2.导包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import flv from &#39;flv.js&#39;;</span><br></pre></td></tr></table></figure>
+<h4 id="3-构建页面标签，播放标签并初始化"><a href="#3-构建页面标签，播放标签并初始化" class="headerlink" title="3.构建页面标签，播放标签并初始化"></a>3.构建页面标签，播放标签并初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  </span><br><span class="line">    &lt;div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;video id&#x3D;&quot;videoElement&quot; controls muted&gt;</span><br><span class="line">  	        Your browser is too old which doesn&#39;t support HTML5 video.</span><br><span class="line">        &lt;&#x2F;video&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        return&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;初始化</span><br><span class="line">     mounted() &#123;</span><br><span class="line">    var videoElement &#x3D; document.getElementById(&#39;videoElement&#39;);</span><br><span class="line">    var flvPlayer &#x3D; flv.createPlayer(&#123;</span><br><span class="line">      type: &#39;flv&#39;,</span><br><span class="line">      enableWorker: true,     &#x2F;&#x2F;浏览器端开启flv.js的worker,多进程运行flv.js</span><br><span class="line">      isLive: true,           &#x2F;&#x2F;直播模式</span><br><span class="line">      hasAudio: false,        &#x2F;&#x2F;关闭音频</span><br><span class="line">      hasVideo: true,</span><br><span class="line">      &#x2F;&#x2F; cors: true,</span><br><span class="line">      stashInitialSize: 128,</span><br><span class="line">      enableStashBuffer: false, &#x2F;&#x2F;播放flv时，设置是否启用播放缓存，只在直播起作用。</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;192.168.2.234&#x2F;flv&#x2F;323223618780001&#39;</span><br><span class="line">      &#x2F;&#x2F; url: &#39;http:&#x2F;&#x2F;39.105.79.238:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">      url: &#39;http:&#x2F;&#x2F;47.93.48.154:8080&#x2F;live?port&#x3D;1935&amp;app&#x3D;live&amp;stream&#x3D;test&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    flvPlayer.attachMediaElement(videoElement);</span><br><span class="line">    flvPlayer.load();</span><br><span class="line">    flvPlayer.play();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+<p>页面效果：<br><img src="/.com//snipaste20210205_193126.jpg"></p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/02/05/docker%E6%93%8D%E4%BD%9C/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">docker操作容器、镜像、dockerfile</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/02/04/%E6%97%A0%E9%99%90%E6%9E%81%E5%88%86%E7%B1%BB/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">无限极分类自关联递归</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">吴清落</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
+</body>
+</html>

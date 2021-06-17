@@ -135,26 +135,287 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2021/04/11/hellow/">
-                        
+                    <a href="/2021/06/17/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/">
+                        vue路由钩子
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        Python部分
-1.语言相关1.2您能列举几个p2和p3的区别吗?1234567python2-👇         	 python3-👇print为语句	       print为方法默认为Ascii编码        默认Unicode(u...
+                        vue路由钩子路由钩子主要主要是拦截导航，完成跳转或者取消跳转。比如登录界面输入了账号密码主界面需要展示账号，但是你没有把账号这个字段保存到 session里面，直接跳转会导致页面显示空白，这个时候就需要一个beforeRouteLeave路由钩子，...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Apr 11 2021 21:05:05 GMT+0800">2021-04-11</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
         
         
     </div>
 
-    <a href="/2021/04/11/hellow/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/06/17/vue%E8%B7%AF%E7%94%B1%E9%92%A9%E5%AD%90/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/17/vue%E6%8B%A6%E6%88%AA%E5%99%A8/">
+                        vue拦截器
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        axios的拦截器 interceptors的用途axios的拦截器有什么作用呢？可以在请求之前做点什么操作，一般有三种：
+
+修改请求头的一些配置项
+给请求添加参数
+给请求的过程添加一些请求的图标
+
+vue设置请求拦截器 和 响应拦截器1234567...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/06/17/vue%E6%8B%A6%E6%88%AA%E5%99%A8/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/17/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6/">
+                        vue父子组件
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        组件介绍组件是可复用的 Vue 实例, 如果网页中的某一个部分需要在多个场景中使用，那么我们可以将其组件进行复用。组件大大提高了代码的复用率。
+父子组件通信·父组件  Father.vue，123456789101112131415161718192...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/06/17/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/17/hello-world/">
+                        Hello World
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, yo...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/06/17/hello-world/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/17/django%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">
+                        django微博三方登录
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        django微博三方登录配置登录流程1.在Vue页面加载时动态发送请求获取微博授权url2.django收到请求的url后，通过微博应用ID(WEIBO_APP_KEY)和回调地址(WEIBO_REDIRECT_URL)动态生成授权url返回给Vue...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/06/17/django%E5%BE%AE%E5%8D%9A%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/06/17/django%E5%AE%9E%E7%8E%B0%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/">
+                        django实现三方支付
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        django实现支付宝支付实例讲解安装python-alipay-sdk123# 安装python-alipay-sdkpip install python-alipay-sdk --upgrade
+沙箱环境配置支付宝开放平台助手生成密钥复制公钥
+支...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jun 17 2021 10:21:37 GMT+0800">2021-06-17</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/06/17/django%E5%AE%9E%E7%8E%B0%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/03/29/passby/">
+                        passby
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Mar 29 2021 18:04:48 GMT+0800">2021-03-29</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/03/29/passby/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/05/docker%E6%93%8D%E4%BD%9C/">
+                        docker操作容器、镜像、dockerfile
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        是docker什么？· IT 软件中所说的 “Docker” ，是指容器化技术，用于支持创建和使用 Linux® 容器。· 开源 Docker 社区致力于改进这类技术，并免费提供给所有用户，使之获益。· Docker Inc. 公司凭借 Docker...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Feb 05 2021 19:37:41 GMT+0800">2021-02-05</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/02/05/docker%E6%93%8D%E4%BD%9C/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/05/%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/">
+                        视频直播
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        使用云主机+vue实现视频直播需要用到的工具：obs(直播软件)实现推流和vlc(媒体播放器)实现拉流obs下载链接：https://obsproject.com/vlc下载链接：https://www.videolan.org/
+使用HTTP-FL...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Feb 05 2021 14:43:37 GMT+0800">2021-02-05</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/02/05/%E8%A7%86%E9%A2%91%E7%9B%B4%E6%92%AD/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/04/%E6%97%A0%E9%99%90%E6%9E%81%E5%88%86%E7%B1%BB/">
+                        无限极分类自关联递归
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        django自关联递归来实现无限级分类所谓的无限极分类是啥？其实简单点说就是一个人类可以繁衍出多个后代，然后一个后代又可以分另外多个后代这样无限繁衍下去，就好象linux系统你可以新建一个文件夹，然后在这个文件夹里又可以建一些个文件夹，在文件夹底下还...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Feb 04 2021 12:59:25 GMT+0800">2021-02-04</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/02/04/%E6%97%A0%E9%99%90%E6%9E%81%E5%88%86%E7%B1%BB/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -165,6 +426,10 @@
         <div class="paginator">
     
 
+    
+        <a class="next btn"
+           href="/page/2/"
+        >下一页</a>
     
 </div>
 
